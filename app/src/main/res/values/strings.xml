@@ -1,7 +1,26 @@
 <resources>
     <string name="app_name">Silent Alarms</string>
     <string name="add_alarm">Add alarm</string>
+    <string name="edit_alarm">Edit alarm</string>
+    <string name="save_alarm">Save</string>
+    <string name="cancel">Cancel</string>
     <string name="no_alarms">No alarms yet</string>
-    <string name="empty_alarm_list_description">Your alarms will appear here.</string>
-    <string name="alarm_creation_coming_soon">Alarm creation is coming in a future update.</string>
+    <string name="empty_alarm_list_description">Tap the add button to create your first stored alarm.</string>
+    <string name="unlabelled_alarm">Alarm</string>
+    <string name="alarm_label">Label</string>
+    <string name="alarm_label_placeholder">Optional</string>
+    <string name="repeat_days">Repeat</string>
+    <string name="repeat_once">Does not repeat</string>
+    <string name="repeat_every_day">Every day</string>
+    <string name="alarm_enabled">Enabled</string>
+    <string name="delete_alarm">Delete</string>
+    <string name="alarm_deleted">Alarm deleted</string>
+    <string name="undo_delete">Undo</string>
+    <string name="monday_short">Mon</string>
+    <string name="tuesday_short">Tue</string>
+    <string name="wednesday_short">Wed</string>
+    <string name="thursday_short">Thu</string>
+    <string name="friday_short">Fri</string>
+    <string name="saturday_short">Sat</string>
+    <string name="sunday_short">Sun</string>
 </resources>
