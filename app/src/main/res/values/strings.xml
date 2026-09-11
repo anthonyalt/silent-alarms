@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Silent Alarms</string>
+    <string name="add_alarm">Add alarm</string>
+    <string name="no_alarms">No alarms yet</string>
+    <string name="empty_alarm_list_description">Your alarms will appear here.</string>
+    <string name="alarm_creation_coming_soon">Alarm creation is coming in a future update.</string>
+</resources>
