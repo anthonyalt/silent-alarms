@@ -21,6 +21,10 @@ class AlarmScheduler(private val context: Context) {
             return
         }
 
+        scheduleAt(alarm, calculateNextTriggerMillis(alarm))
+    }
+
+    fun scheduleAt(alarm: Alarm, triggerMillis: Long) {
         if (alarmManager == null) {
             Log.e(TAG, "AlarmManager service not available")
             return
@@ -30,8 +34,6 @@ class AlarmScheduler(private val context: Context) {
             Log.w(TAG, "Cannot schedule exact alarm: exact alarm permission missing")
             return
         }
-
-        val triggerMillis = calculateNextTriggerMillis(alarm)
 
         val operationIntent = Intent(context, AlarmReceiver::class.java).apply {
             action = ACTION_ALARM_TRIGGERED
