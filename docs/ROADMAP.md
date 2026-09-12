@@ -1,13 +1,15 @@
 # Silent Alarms roadmap
 
-The bootstrap provides a buildable Android app, a Material 3 Expressive empty
-alarm list with an add FAB, a Room alarm schema, a Preferences DataStore entry
-point, and debug APK delivery. It does not schedule or ring alarms.
+The app provides a buildable Android app, Material 3 Expressive alarm list and
+add/edit UI, a Room alarm schema with persisted create/edit/delete/toggle flows,
+a Preferences DataStore entry point, and debug APK delivery. It does not
+schedule or ring alarms.
 
 ## Later sessions
 
-- [ ] Alarm creation/editing, stored-alarm list rendering, enable/disable, and
-  deletion; settings UI backed by DataStore.
+- [x] Alarm creation/editing, stored-alarm list rendering, enable/disable, and
+  deletion.
+- [ ] Settings UI backed by DataStore.
 - [ ] Exact scheduling through `AlarmManager` with `USE_EXACT_ALARM`, including
   one-shot and repeating alarms, cancellation, and time/time-zone changes.
 - [ ] A foreground service for ringing/vibration with a **5 minute auto-dismiss**,
