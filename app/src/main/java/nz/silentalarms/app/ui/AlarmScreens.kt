@@ -46,6 +46,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -258,7 +259,12 @@ private fun AlarmRow(
     onClick: () -> Unit,
     onToggle: (Boolean) -> Unit,
 ) {
-    Card(modifier = Modifier.fillMaxWidth().clickable(onClick = onClick)) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .testTag("alarm-row-${alarm.id}")
+            .clickable(onClick = onClick),
+    ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(20.dp),
             verticalAlignment = Alignment.CenterVertically,
@@ -287,6 +293,7 @@ private fun AlarmRow(
             Switch(
                 checked = alarm.isEnabled,
                 onCheckedChange = onToggle,
+                modifier = Modifier.testTag("alarm-toggle-${alarm.id}"),
             )
         }
     }
@@ -349,7 +356,7 @@ private fun AlarmEditorScreen(
                 OutlinedTextField(
                     value = editor.label,
                     onValueChange = onLabelChange,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag("alarm-label"),
                     label = { Text(stringResource(R.string.alarm_label)) },
                     placeholder = { Text(stringResource(R.string.alarm_label_placeholder)) },
                     singleLine = true,
@@ -367,6 +374,7 @@ private fun AlarmEditorScreen(
                             FilterChip(
                                 selected = day in editor.daysOfWeek,
                                 onClick = { onDayToggle(day) },
+                                modifier = Modifier.testTag("repeat-${day.name}"),
                                 label = { Text(dayShortLabel(day)) },
                             )
                         }
@@ -390,7 +398,7 @@ private fun AlarmEditorScreen(
                 }
                 Button(
                     onClick = onSave,
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().testTag("save-alarm"),
                 ) {
                     Text(stringResource(R.string.save_alarm))
                 }

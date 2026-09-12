@@ -14,11 +14,11 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import nz.silentalarms.app.data.Alarm
 import nz.silentalarms.app.data.AlarmDao
-import nz.silentalarms.app.scheduler.AlarmScheduler
+import nz.silentalarms.app.scheduler.AlarmScheduling
 
 class AlarmViewModel(
     private val alarmDao: AlarmDao,
-    private val alarmScheduler: AlarmScheduler,
+    private val alarmScheduler: AlarmScheduling,
 ) : ViewModel() {
     private val editorState = MutableStateFlow<AlarmEditorState?>(null)
     private val deletedAlarm = MutableStateFlow<Alarm?>(null)
@@ -135,7 +135,7 @@ class AlarmViewModel(
 
     class Factory(
         private val alarmDao: AlarmDao,
-        private val alarmScheduler: AlarmScheduler,
+        private val alarmScheduler: AlarmScheduling,
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
