@@ -33,10 +33,12 @@ Use Room suspend functions and flows; do not allow main-thread database queries.
 The app supports local alarm creation/editing, stored-alarm list rendering,
 enable/disable toggling, and swipe-to-delete with undo. Room and DataStore are
 available through `SilentAlarmsApplication`; alarm UI state is owned by a
-ViewModel exposed as `StateFlow`. Settings UI is not implemented yet. Do not add
-scheduling, services, alarm permissions, sound/vibration playback, or other
-roadmap features unless the current task explicitly requests them. See
-`docs/ROADMAP.md` for later sessions.
+ViewModel exposed as `StateFlow`. Enabled alarms use `AlarmManager.setAlarmClock`,
+reschedule after reboot, and fire through a `specialUse` foreground service with
+a full-screen lock-screen activity, repeating vibration, nine-minute snooze, and
+five-minute auto-dismiss. Settings UI and sound playback are not implemented
+yet. Do not add other roadmap features unless the current task explicitly
+requests them. See `docs/ROADMAP.md` for later sessions.
 
 Use string resources for user-visible text, accessible button labels, Compose
 edge-to-edge insets, and light/dark themes. Keep changes scoped and avoid adding

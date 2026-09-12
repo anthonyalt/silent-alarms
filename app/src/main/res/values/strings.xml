@@ -25,4 +25,8 @@
     <string name="sunday_short">Sun</string>
     <string name="notification_channel_name">Alarm Notifications</string>
     <string name="notification_channel_description">Notifications for scheduled alarms</string>
+    <string name="dismiss_alarm">Dismiss</string>
+    <string name="snooze_alarm">Snooze</string>
+    <string name="alarm_ringing">Alarm ringing</string>
+    <string name="snoozed_for_nine_minutes">Snoozed for 9 minutes</string>
 </resources>

@@ -3,8 +3,9 @@
 The app provides a buildable Android app, Material 3 Expressive alarm list and
 add/edit UI, a Room alarm schema with persisted create/edit/delete/toggle flows,
 exact AlarmManager scheduling (`setAlarmClock`) with Doze exemption and reboot
-rescheduling (`BOOT_COMPLETED`), a Preferences DataStore entry point, and debug
-APK delivery.
+rescheduling (`BOOT_COMPLETED`), a foreground alarm service with full-screen
+lock-screen UI, repeating alarm vibration, snooze, and five-minute auto-dismiss,
+a Preferences DataStore entry point, and debug APK delivery.
 
 ## Later sessions
 
@@ -13,9 +14,9 @@ APK delivery.
 - [ ] Settings UI backed by DataStore.
 - [x] Exact scheduling through `AlarmManager` with `USE_EXACT_ALARM`, including
   one-shot and repeating alarms, cancellation, and time/time-zone changes.
-- [ ] A foreground service for ringing/vibration with a **5 minute auto-dismiss**,
+- [x] A foreground service for ringing/vibration with a **5 minute auto-dismiss**,
   explicit dismissal, and appropriate notification/service permissions.
-- [ ] A full-screen intent alarm screen, with lock-screen behavior and full-screen
+- [x] A full-screen intent alarm screen, with lock-screen behavior and full-screen
   intent permission/eligibility handling.
 - [ ] Built-in and custom vibration patterns using
   `VibrationEffect.createWaveform`, including pattern selection and preview.
