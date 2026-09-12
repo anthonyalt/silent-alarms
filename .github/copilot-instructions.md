@@ -55,3 +55,11 @@ The debug APK is `app/build/outputs/apk/debug/app-debug.apk`.
 `.github/workflows/build.yml` builds and tests pushes to `main`, uploads the APK,
 and publishes it as a debug prerelease. These APKs are development builds, not
 production-signed releases.
+
+## Testing limitations
+
+Robolectric and Compose UI tests run under `./gradlew testDebugUnitTest` without
+an emulator. Pull requests also run `connectedDebugAndroidTest` on an API 36
+x86_64 emulator. Emulators do not provide haptic hardware, so vibration and
+haptic behavior cannot be verified in CI. Manually verify alarm vibration,
+including behavior while the phone is silent, on a physical Android device.

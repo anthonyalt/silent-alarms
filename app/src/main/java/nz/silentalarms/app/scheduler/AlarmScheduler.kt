@@ -12,10 +12,10 @@ import nz.silentalarms.app.MainActivity
 import nz.silentalarms.app.data.Alarm
 import nz.silentalarms.app.receiver.AlarmReceiver
 
-class AlarmScheduler(private val context: Context) {
+class AlarmScheduler(private val context: Context) : AlarmScheduling {
     private val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
-    fun schedule(alarm: Alarm) {
+    override fun schedule(alarm: Alarm) {
         if (!alarm.isEnabled) {
             cancel(alarm)
             return
@@ -24,7 +24,7 @@ class AlarmScheduler(private val context: Context) {
         scheduleAt(alarm, calculateNextTriggerMillis(alarm))
     }
 
-    fun scheduleAt(alarm: Alarm, triggerMillis: Long) {
+    override fun scheduleAt(alarm: Alarm, triggerMillis: Long) {
         if (alarmManager == null) {
             Log.e(TAG, "AlarmManager service not available")
             return
@@ -60,11 +60,11 @@ class AlarmScheduler(private val context: Context) {
         Log.d(TAG, "Scheduled alarm id=${alarm.id} at $triggerMillis")
     }
 
-    fun cancel(alarm: Alarm) {
+    override fun cancel(alarm: Alarm) {
         cancel(alarm.id)
     }
 
-    fun cancel(alarmId: Long) {
+    override fun cancel(alarmId: Long) {
         if (alarmManager == null) return
 
         val operationIntent = Intent(context, AlarmReceiver::class.java).apply {
