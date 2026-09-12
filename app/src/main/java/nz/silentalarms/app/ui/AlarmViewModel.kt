@@ -14,8 +14,12 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import nz.silentalarms.app.data.Alarm
 import nz.silentalarms.app.data.AlarmDao
+import nz.silentalarms.app.scheduler.AlarmScheduler
 
-class AlarmViewModel(private val alarmDao: AlarmDao) : ViewModel() {
+class AlarmViewModel(
+    private val alarmDao: AlarmDao,
+    private val alarmScheduler: AlarmScheduler,
+) : ViewModel() {
     private val editorState = MutableStateFlow<AlarmEditorState?>(null)
     private val deletedAlarm = MutableStateFlow<Alarm?>(null)
 
@@ -79,13 +83,28 @@ class AlarmViewModel(private val alarmDao: AlarmDao) : ViewModel() {
         val editor = editorState.value ?: return
         editorState.value = null
         viewModelScope.launch {
-            alarmDao.upsert(editor.toAlarm())
+            val alarmToSave = editor.toAlarm()
+            val id = alarmDao.upsert(alarmToSave)
+            val savedAlarm = alarmToSave.copy(id = id)
+            if (savedAlarm.isEnabled) {
+                alarmScheduler.schedule(savedAlarm)
+            } else {
+                alarmScheduler.cancel(savedAlarm)
+            }
         }
     }
 
     fun setAlarmEnabled(id: Long, isEnabled: Boolean) {
         viewModelScope.launch {
             alarmDao.setEnabled(id, isEnabled)
+            val alarm = alarmDao.getById(id)
+            if (alarm != null) {
+                if (isEnabled) {
+                    alarmScheduler.schedule(alarm)
+                } else {
+                    alarmScheduler.cancel(alarm)
+                }
+            }
         }
     }
 
@@ -93,6 +112,7 @@ class AlarmViewModel(private val alarmDao: AlarmDao) : ViewModel() {
         viewModelScope.launch {
             alarmDao.getById(id)?.let { alarm ->
                 alarmDao.delete(alarm)
+                alarmScheduler.cancel(alarm)
                 deletedAlarm.value = alarm
             }
         }
@@ -103,6 +123,9 @@ class AlarmViewModel(private val alarmDao: AlarmDao) : ViewModel() {
         deletedAlarm.value = null
         viewModelScope.launch {
             alarmDao.upsert(alarm)
+            if (alarm.isEnabled) {
+                alarmScheduler.schedule(alarm)
+            }
         }
     }
 
@@ -110,11 +133,14 @@ class AlarmViewModel(private val alarmDao: AlarmDao) : ViewModel() {
         deletedAlarm.value = null
     }
 
-    class Factory(private val alarmDao: AlarmDao) : ViewModelProvider.Factory {
+    class Factory(
+        private val alarmDao: AlarmDao,
+        private val alarmScheduler: AlarmScheduler,
+    ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(AlarmViewModel::class.java)) {
-                return AlarmViewModel(alarmDao) as T
+                return AlarmViewModel(alarmDao, alarmScheduler) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }

@@ -12,6 +12,9 @@ interface AlarmDao {
     @Query("SELECT * FROM alarms ORDER BY hour, minute, id")
     fun observeAll(): Flow<List<Alarm>>
 
+    @Query("SELECT * FROM alarms WHERE isEnabled = 1")
+    suspend fun getEnabledAlarms(): List<Alarm>
+
     @Query("SELECT * FROM alarms WHERE id = :id")
     suspend fun getById(id: Long): Alarm?
 

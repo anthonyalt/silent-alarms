@@ -23,4 +23,6 @@
     <string name="friday_short">Fri</string>
     <string name="saturday_short">Sat</string>
     <string name="sunday_short">Sun</string>
+    <string name="notification_channel_name">Alarm Notifications</string>
+    <string name="notification_channel_description">Notifications for scheduled alarms</string>
 </resources>
